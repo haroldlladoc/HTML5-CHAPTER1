@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv = "Content-type" content = "text/html; charset = utf-8">
+		<title > Sample HTML5 File </title>
+		<script type = "text/javascript" charset = "utf-8"> 
+		//This function will be called once the page loads completely
+		function pageLoaded(){
+					//Get a handle to the canvas object
+			var canvas = document.getElementById('testcanvas');
+			
+			//Get the 2d context for this canvas
+			var context = canvas.getContext('2d');
+			
+			
+			//FILLED RECTANGLES
+			
+			//Solid Square with width and height of 100 pixels at (200,10)
+			context.fillRect (200,10,100,100)
+			
+			//solid square with width of 90 pixels and height of 30 pixels at (50,70)
+			context.fillRect(50, 70,90,30);
+			
+			//STROKED RECTANGLES
+			
+			//Rectangular outline of width and height 50 pixels at 11,10) 
+			context.strokeRect(110,10,50,50)
+			
+			//Rectangular outline of width and height 50 pixels at (30,10,50,50)
+			context.strokeRect(30,10,50,50)
+
+		//CLEARING RECTANGLES
+		
+		//clear a Rectangle of width of 30 pixels and height 20 pixels at (210, 20)
+		context.clearRect(210,20,30,20)
+		
+		//clear a Rectangle of width 30,and height 20 pixels at (260,20)
+		context.clearRect(260,20,30,20)
+		
+		//DRAWING COMPLEX SHAPES IN THE CANVASS
+		
+		//MANUAL drawing of FILLED TRIANGLE
+		context.beginPath();
+		context.moveTo(10,120);		
+		//start drawing at 10,120
+		context.lineTo(10,180);
+		context.lineTo(110,150);		
+		//close the shape and fill it out
+		context.fill();
+		
+		//DRAWING A STROKED TRIANGLE (OUTLINED)
+		context.beginPath();
+		context.moveTo(140,160);
+		//start drawing at 140,160
+		context.lineTo(140,220);
+		context.lineTo(40,190);
+		context.closePath();
+		context.stroke();
+		
+		//DRAWING A MORE COMPLEX SHAPE (IRREGULAR SHAPE)
+		context.beginPath();
+		context.moveTo(160,160);
+		//start drawing at 160,160
+		context.lineTo(170,220);
+		context.lineTo(240,210);
+		context.lineTo(260,170);
+		context.lineTo(190,140);
+		context.closePath();
+		context.stroke();
+		
+		//DRAWING ARCS
+		
+		//SEMI-CIRCLE
+		context.beginPath();	
+		//Draw an arc at (400,50) with radius 40 from 0 to 180 degrees, anticlockwise
+		context.arc(100,300,40,0,Math.PI,true);
+		//(PI radians =180 degrees)
+		context.stroke();
+		
+		//Drawing a full circle
+		context.beginPath();
+		//Draw an arc at (500,50) with radius 30 from 0 to 360 degrees, anticlockwise
+		context.arc(100,300,30,0,2*Math.PI,true);
+		//(2*PI radians = 360 degrees)
+		context.fill();
+
+		//Drawing a three-quarter arc 
+		context.beginPath();
+		//Draw an arc at (400,100) with radius 25 from 0 to 270 degrees, clockwise
+		context.arc(200,300,25,0,3/2*Math.PI,false);
+		//(3/2PI radians = 270)
+		context.stroke();
+		
+		//DRAWING PLAIN TEXT  
+		context.fillText('This is some text. . .',330,40);
+		
+		//MODIFYING THE FONT 
+		context.font = '10 pt Arial';
+		context.fillText('This is in 10 pt Arial . . .',330,60);
+		
+		//MODIFYING STROKED text 
+		context.font = '16 pt Arial';
+		context.strokeText('This is stroked in 16 pt Arial l l l',330,80);
+		
+		//DRAWING WITH COLORS AND TRANSPARENCY
+		
+		//SET FILL COLOR TO RED
+		context.fillStyle = "red";
+		//DRAW A RED FILLED RECTANGLE
+		context.fillRect(310,160,100,50);//310 is x-axis from origin, 160 is y-axis from origin, 100 is the length, 50 is the height
+		
+		//SET STROKE COLOR TO GREEN
+		context.strokeStyle = "green";
+		//DRAW A GREEN STROKED RECTANGLE
+		context.strokeRect(310,240,100,50);
+		
+		//SET FILL COLOR TO RED USING RGB
+		context.fillStyle="rgb(255,0,0)";
+		//DRAW A RED FILLED RECTANGLE 
+		context.fillRect(420,160,100,50);
+		
+		//SET FILL COLOR to GREEN WITH an ALPHA of 0.5
+		context.fillStyle="rgba(0,255,0,0.6)";
+		//DRAW SEMI TRANSPARENT GREEN Filled rectangle
+		context.fillRect(450,180,100,50);
+
+		//GET A HANDLE TO THE IMAGE OBJECT 
+		var image = document.getElementById('spaceship');
+		//DRAW the image at (0,350)
+		context.drawImage(image,0,350);
+		//SCALING the image to half the originzal size
+		context.drawImage(image,0,400,100,25);
+		//DRAWING PART OF THE IMAGE
+		context.drawImage(image,65,0,65,50,20,420,60,50);
+		//context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+		//img - specifies the image, canvas, or video element to use 
+		//sx - optional. the x coordinate where to start clipping
+		//sy - optional. the y coordinate where to start clipping
+		//swidth - optional. the width of the clipped image
+		//sheight - optional. the height of the clipped image
+		//x - the x coordinate where to place the image on the canvas
+		//y - the y coordinate where to place the image on the canvas
+		//width - optional.the width of the image to use (stretch or reduce the image)
+		//height - optional. the height of the image to use (stretch or reduce the image)
+		//NOTE ABOUT THE CROPPING TECHNIQUE - sx, is the starting point of the crop, swidth is the end point of the crop for widht, sy and sheight works the same way. these are the parameters used to identify the crop area
+		
+		//TRANSLATE ORIGIN TO LOCATION OF OBJECT 
+		context.translate(250,370);
+		//ROTATE ABOUT THE NEW ORIGIN BY 60 DEGREES
+		context.rotate(Math.PI/3);
+		context.drawImage(image,0,0,60,50,-30,-25,60,50);
+		
+		//RESTORE TO ORIGINAL STATE BY ROTATING AND TRANSLATING BACK 
+		context.rotate(-Math.PI/3);
+		context.translate(-240,-370);
+		
+		//TRANSLATE ORIGIN TO LOCATION OF OBJECT 
+		context.translate(300,370);
+		//ROTATE ABOUT THE NEW ORIGIN
+		context.rotate(3*Math.PI/4);
+		context.drawImage(image,0,0,60,50,-30,-25,60,50);
+		
+		//RESTORE TO ORIGINAL STATE BY ROTATING AND TRANSLATING BACK 
+		context.rotate(-3*Math.PI/4);
+		context.translate(-300,-370);
+
+			alert('Hello World!');
+		}
+		</script>
+	</head>
+	<body onload = "pageLoaded();">
+	<canvas width = "640" height = "480" id = "testcanvas" style = "border:black 1px solid;">
+		
+	Your browser does not support HTML5 Canvas. Please shift to another browser. </canvas>
+	
+	<img src="spaceship.png" id = "spaceship">
+	</body>
+</html>
